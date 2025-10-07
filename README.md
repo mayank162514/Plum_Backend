@@ -2,6 +2,9 @@
 
 Extracts monetary amounts (Total, Paid, Due) from medical bills/receipts (typed or scanned). Handles OCR noise, digit corrections, and context classification, returning structured JSON with provenance and confidence.
 
+## Postman endpoints video
+"https://drive.google.com/file/d/1pZ8qkm7ATotsro9O-Zct3w1qwhsX3ToH/view?usp=sharing"
+
 ## Setup
 
 - Prerequisites: Node.js 18+, npm
