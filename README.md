@@ -161,10 +161,7 @@ Use a new request tab to avoid hidden base URLs. Replace 3000 if you changed POR
 - Method: POST
 - URL: `http://127.0.0.1:3000/process`
 - Headers: `Content-Type: application/json`
-- Body:
-```json
-Total: INR 1200 | Paid: 1000 | Due: 200 | Discount: 10%
-```
+
 - Response:
 ```json
 {
