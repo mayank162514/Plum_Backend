@@ -1,0 +1,168 @@
+{
+  "info": {
+    "name": "Plum_Backend - AI Amount Detection",
+    "_postman_id": "b4bcd3b6-89e1-4780-9d6b-21e5c20a56f2",
+    "description": "Postman collection for testing AI-powered amount detection backend.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Step 1 - OCR/Text Extraction (Text Input)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Total: INR 1200 | Paid: 1000 | Due: 200 | Discount: 10%\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/step1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["step1"]
+        }
+      }
+    },
+    {
+      "name": "Step 1 - OCR/Text Extraction (Image Input)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/step1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["step1"]
+        }
+      }
+    },
+    {
+      "name": "Step 2 - Normalization",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"raw_tokens\": [\"1200\", \"1000\", \"200\", \"10%\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/step2",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["step2"]
+        }
+      }
+    },
+    {
+      "name": "Step 3 - Classification",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"normalized_amounts\": [1200, 1000, 200],\n  \"raw_text\": \"Total: INR 1200 | Paid: 1000 | Due: 200\",\n  \"raw_tokens\": [\"1200\", \"1000\", \"200\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/step3",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["step3"]
+        }
+      }
+    },
+    {
+      "name": "Step 4 - Final Output",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amounts\": [\n    {\"type\": \"total_bill\", \"value\": 1200},\n    {\"type\": \"paid\", \"value\": 1000},\n    {\"type\": \"due\", \"value\": 200}\n  ],\n  \"currency\": \"INR\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/step4",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["step4"]
+        }
+      }
+    },
+    {
+      "name": "Full Pipeline - /process (Text)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "text",
+              "value": "Total: INR 1200 | Paid: 1000 | Due: 200 | Discount: 10%",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/process",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["process"]
+        }
+      }
+    },
+    {
+      "name": "Full Pipeline - /process (Image)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/process",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["process"]
+        }
+      }
+    }
+  ]
+}
