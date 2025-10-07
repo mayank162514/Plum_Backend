@@ -106,7 +106,9 @@ Use a new request tab to avoid hidden base URLs. Replace 3000 if you changed POR
 - Headers: `Content-Type: application/json`
 - Body (raw JSON):
 ```json
-{ "text": "Total: $1200 | Paid: $1005 | Due: $200 | Discount: 10%" }
+{
+  "text": "Total: INR 1200 | Paid: 1000 | Due: 200 | Discount: 10%"
+}
 ```
 
 ### Step 2
@@ -115,7 +117,9 @@ Use a new request tab to avoid hidden base URLs. Replace 3000 if you changed POR
 - Headers: `Content-Type: application/json`
 - Body:
 ```json
-{ "raw_tokens": ["$1200","$1005","$200","10%"] }
+{
+  "raw_tokens": ["1200", "1000", "200", "10%"]
+}
 ```
 
 ### Step 3
@@ -125,9 +129,9 @@ Use a new request tab to avoid hidden base URLs. Replace 3000 if you changed POR
 - Body:
 ```json
 {
-  "normalized_amounts": [1200,1005,200],
-  "raw_text": "Total: $1200 | Paid: $1005 | Due: $200 | Discount: 10%",
-  "raw_tokens": ["$1200","$1005","$200","10%"]
+  "normalized_amounts": [1200, 1000, 200],
+  "raw_text": "Total: INR 1200 | Paid: 1000 | Due: 200",
+  "raw_tokens": ["1200", "1000", "200"]
 }
 ```
 
@@ -139,12 +143,11 @@ Use a new request tab to avoid hidden base URLs. Replace 3000 if you changed POR
 ```json
 {
   "amounts": [
-    {"type":"total_bill","value":1200},
-    {"type":"paid","value":1005},
-    {"type":"due","value":200}
+    {"type": "total_bill", "value": 1200},
+    {"type": "paid", "value": 1000},
+    {"type": "due", "value": 200}
   ],
-  "currency": "USD",
-  "raw_text": "Total: $1200 | Paid: $1005 | Due: $200"
+  "currency": "INR"
 }
 ```
 
@@ -160,7 +163,31 @@ Use a new request tab to avoid hidden base URLs. Replace 3000 if you changed POR
 - Headers: `Content-Type: application/json`
 - Body:
 ```json
-{ "text": "Total: $1200 | Paid: $1005 | Due: $200 | Discount: 10%" }
+Total: INR 1200 | Paid: 1000 | Due: 200 | Discount: 10%
+```
+- Response:
+```json
+{
+    "currency": "INR",
+    "amounts": [
+        {
+            "type": "total_bill",
+            "value": 1200,
+            "source": "text: 'Total: INR 1200'"
+        },
+        {
+            "type": "paid",
+            "value": 1000,
+            "source": "text: 'Paid: 1000'"
+        },
+        {
+            "type": "due",
+            "value": 200,
+            "source": "text: 'Due: 200'"
+        }
+    ],
+    "status": "ok"
+}
 ```
 
 ## Expected Responses
