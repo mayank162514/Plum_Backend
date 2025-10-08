@@ -25,7 +25,7 @@ http://127.0.0.1:3000/health
 ### Environment variables
 - PORT: server port (default 3000)
 - GEMINI_API_KEY: optional, enables Gemini-assisted classification
-- TESSDATA_URL: remote tessdata (default https://tessdata.projectnaptha.com/4.0.0)
+- TESSDATA_URL: remote tessdata 
 - Optional local OCR data: place `tessdata/eng.traineddata` under project root for offline OCR
 
 ## Architecture
